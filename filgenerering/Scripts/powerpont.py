@@ -12,6 +12,12 @@ def create_presentation():
             num_slides = int(input("Hvor mange slides vil du ha i presentasjonen? "))
             print(f"Du har valgt å lage en presentasjon med {num_slides} slides.")
 
+            # Sjekker om bruker ønsker å avslutte presentasjonsopprettelsen
+            if prs_title and num_slides.lower().strip() == ["exit", "quit", "q"]:
+                print("Exiting presentation creation.")
+                return None
+
+
             # Ber om tittel og innhold for hver slide
             slide_content = []
             for i in range(num_slides):
