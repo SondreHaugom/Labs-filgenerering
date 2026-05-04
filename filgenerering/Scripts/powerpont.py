@@ -40,4 +40,3 @@ def create_presentation():
     return f"{prs_title}.pptx"
 
 
-create_presentation()

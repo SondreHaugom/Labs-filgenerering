@@ -15,7 +15,7 @@ tools = [
     {
         "type": "function",
         "name": "generate_presentation",
-        "description": "Genererer en PowerPoint-presentasjon basert på brukerens input. Brukes når brukeren ønsker å lage en presentasjon.",
+        "description": "Genererer en PowerPoint-presentasjon basert på brukerens input. Brukes når brukeren ønsker å lage en presentasjon. når funksjonen kalles kan bruker legge inn tittel og innhold selv, og presentasjonen vil bli lagret som en .pptx fil.",
         "parameters": {
             "type": "object",
             "properties": {
@@ -59,14 +59,15 @@ def chat_with_gpt():
         # skriver ut responsen fra gpt
         print(f"GPT: {response.output_text}")
 
-        while any(item.type == "function_call"):
+        while any(item.type == "function_call" for item in response.output):
+            
             input_list = []
 
             for item in response.output:
                 if item.type == "function_call":
-                    print(f"Kaller funksjonen ---> {item.function_call.name}")
+                    print(f"Kaller funksjonen ---> {item.name}")
 
-                elif item.function_call.name == "generate_presentation":
+                if item.name == "generate_presentation":
                     result = generate_presentation()
 
                     input_list.append({
@@ -83,6 +84,7 @@ def chat_with_gpt():
                     )
                     response_id = response.id
                     print(f"GPT: {response.output_text}")
+
 # starter chatten når scriptet kjøres direkte
 if __name__ == "__main__":
     print("Starting chat with GPT. Type 'exit', 'quit', or 'q' to end the chat.")
