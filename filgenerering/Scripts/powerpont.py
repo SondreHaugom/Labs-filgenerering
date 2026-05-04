@@ -33,6 +33,8 @@ def create_presentation():
         slide = prs.slides.add_slide(slide_layout) # Legger til en ny slide i presentasjonen
         title = slide.shapes.title # Får tilgang til tittelen på sliden
         title.text = slide_content[i][0]  # Setter tittelen for sliden
+        content = slide.shapes.placeholders[1] # Får tilgang til innholdet på sliden
+        content.text = slide_content[i][1]  # Setter innholdet for sliden
     prs.save(f"{prs_title}.pptx") # Lagerer presentasjonen med det angitte navnet
     print(f"Presentasjonen er lagret som '{prs_title}.pptx'.")
     return f"{prs_title}.pptx"

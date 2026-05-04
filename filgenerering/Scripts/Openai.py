@@ -1,6 +1,9 @@
+import json
+
 import openai
 from dotenv import load_dotenv
 import os
+from Scripts.powerpont import create_presentation
 
 load_dotenv()
 
@@ -9,9 +12,26 @@ client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 conversation_ID = None
 
 tools = [
-    
+    {
+        "type": "function",
+        "name": "generate_presentation",
+        "description": "Genererer en PowerPoint-presentasjon basert på brukerens input. Brukes når brukeren ønsker å lage en presentasjon.",
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "presentation_file": {
+                    "type": "string",
+                    "description": "Navnet på den genererte PowerPoint-filen."
+                }
+            },
+        }
+    }
 ]
 
+
+def generate_presentation():
+    presentation_file = create_presentation()
+    return presentation_file
 
 
 # funksjon for å holde en samtale med openai gpt-5.4
@@ -39,6 +59,30 @@ def chat_with_gpt():
         # skriver ut responsen fra gpt
         print(f"GPT: {response.output_text}")
 
+        while any(item.type == "function_call"):
+            input_list = []
+
+            for item in response.output:
+                if item.type == "function_call":
+                    print(f"Kaller funksjonen ---> {item.function_call.name}")
+
+                elif item.function_call.name == "generate_presentation":
+                    result = generate_presentation()
+
+                    input_list.append({
+                        "type": "function_call_output", 
+                        "call_id": item.call_id, 
+                        "output": json.dumps(result)    
+                    })
+
+                    response = client.responses.create(
+                        model="gpt-5.4",
+                        input=input_list,
+                        previous_response_id=response_id,
+                        tools= tools
+                    )
+                    response_id = response.id
+                    print(f"GPT: {response.output_text}")
 # starter chatten når scriptet kjøres direkte
 if __name__ == "__main__":
     print("Starting chat with GPT. Type 'exit', 'quit', or 'q' to end the chat.")
