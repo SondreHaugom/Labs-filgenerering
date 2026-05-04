@@ -1,0 +1,40 @@
+import openai
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
+conversation_ID = None
+
+
+
+# funksjon for å holde en samtale med openai gpt-5.4
+def chat_with_gpt():
+    # Vi starter med ingen tidligere respons, så response_id er None
+    response_id = None
+
+    # kjører samtalen i en løkke som kjrøer fram til bruker skriver "exit", "quit" eller "q"
+    while True:
+        # henter bruker input
+        user_input = input("You: ")
+        
+        if user_input.lower() in ["exit", "quit", "q"]: # sjekker om bruker vil avslutte samtalen
+            print("Exiting chat.")
+            break
+        # Oppretter respons fra openai med responses api
+        response = client.responses.create(
+            model="gpt-5.4",
+            input=user_input,
+            previous_response_id=response_id,
+        )
+        # oppdaterer response_id for neste iterasjon av løkken
+        response_id = response.id
+        # skriver ut responsen fra gpt
+        print(f"GPT: {response.output_text}")
+
+# starter chatten når scriptet kjøres direkte
+if __name__ == "__main__":
+    print("Starting chat with GPT. Type 'exit', 'quit', or 'q' to end the chat.")
+    chat_with_gpt()

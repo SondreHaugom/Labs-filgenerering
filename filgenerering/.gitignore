@@ -11,3 +11,10 @@ pip3.exe
 python.exe
 pythonw.exe
 pyvenv.cfg
+tqdm.exe
+openai.exe
+distro.exe
+httpx.exe
+dotenv.exe
+
+.env
