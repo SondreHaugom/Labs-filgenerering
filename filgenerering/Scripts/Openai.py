@@ -8,6 +8,10 @@ client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 conversation_ID = None
 
+tools = [
+    
+]
+
 
 
 # funksjon for å holde en samtale med openai gpt-5.4
@@ -28,6 +32,7 @@ def chat_with_gpt():
             model="gpt-5.4",
             input=user_input,
             previous_response_id=response_id,
+            tools= tools
         )
         # oppdaterer response_id for neste iterasjon av løkken
         response_id = response.id

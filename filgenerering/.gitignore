@@ -16,5 +16,7 @@ openai.exe
 distro.exe
 httpx.exe
 dotenv.exe
+vba_extract.py
+__pycache__
 
 .env
