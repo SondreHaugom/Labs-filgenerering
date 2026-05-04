@@ -1,0 +1,13 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+lib
+activate
+activate.bat
+activate.fish
+activate.ps1
+deactivate.bat
+pip.exe
+pip3.13.exe
+pip3.exe
+python.exe
+pythonw.exe
+pyvenv.cfg
