@@ -28,10 +28,12 @@ tools = [
     }
 ]
 
-
+# funksjon for å generere en presentasjon ved å kalle create_presentation fra powerpont.py
 def generate_presentation():
     presentation_file = create_presentation()
-    return presentation_file
+    if presentation_file is None:
+        return {"presentation_file": "Ingen presentasjon generert."}
+    return {"presentation_file": presentation_file}
 
 
 # funksjon for å holde en samtale med openai gpt-5.4

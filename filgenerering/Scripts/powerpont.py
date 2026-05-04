@@ -13,9 +13,9 @@ def create_presentation():
             print(f"Du har valgt å lage en presentasjon med {num_slides} slides.")
 
             # Sjekker om bruker ønsker å avslutte presentasjonsopprettelsen
-            if prs_title and num_slides.lower().strip() == ["exit", "quit", "q"]:
-                print("Exiting presentation creation.")
-                return None
+            #if prs_title and num_slides.lower().strip() == ["exit", "quit", "q"]:
+            #   print("Exiting presentation creation.")
+            #   return None
 
 
             # Ber om tittel og innhold for hver slide
