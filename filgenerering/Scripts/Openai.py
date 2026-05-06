@@ -1,5 +1,4 @@
 import json
-
 import openai
 from dotenv import load_dotenv
 import os
@@ -52,6 +51,7 @@ def chat_with_gpt():
         # Oppretter respons fra openai med responses api
         response = client.responses.create(
             model="gpt-5.4",
+            instructions="Du er en hjelpsom assistent, om bruker sprør som du kan lage en presentasjon skal du bruke funksjonskall for å opprette fila ikke noe mer.", 
             input=user_input,
             previous_response_id=response_id,
             tools= tools

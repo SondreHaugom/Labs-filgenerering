@@ -26,4 +26,7 @@ Dette prosjektet er en prototype for et behov der agenter skal kunne lage/genere
 
 
 
+### Om prosjektet
+Dette prosjektet går ut på at KI-agenter skal kunne opprette filer som docx, pptx og xlsx filer. måten dette er satt sammen op er at Agenten benytter seg av funksjonskall som blir trigget av bruker input.
+
 MER KOMMER
